@@ -87,7 +87,20 @@ app.patch("/fruits/:name", (req, res) => {
       res.status(400).send(error.message)
     }
 
-   
+    app.delete("/fruits/:name", (req, res) => {
+
+        const name = req.params.name.toLowerCase();
+      
+        const fruitIndex = fruits.findIndex(fruit => fruit.name.toLowerCase() === name);
+      
+        if (fruitIndex === -1) {
+          res.status(404).send({ error: "fruit does not exist" })
+        } else {
+          fruits.splice(fruitIndex, 1);
+      
+          res.status(204).send()
+        }
+      })
 
 
   })
